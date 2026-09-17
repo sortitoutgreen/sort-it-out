@@ -1,6 +1,6 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,31 +8,32 @@
     <title>Sort It Out! 🌎</title>
 
     <style>
+
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f3f9f1;
-            color: #23452b;
-            min-height: 100vh;
-            padding: 25px 15px;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f8f3;
+            color: #23412b;
+            text-align: center;
         }
 
         .container {
-            max-width: 600px;
+            width: 92%;
+            max-width: 700px;
             margin: auto;
+            padding: 30px 0 50px;
         }
 
-        /* Sprout */
+        /* SPROUT */
+
         .sprout {
-            text-align: center;
             font-size: 75px;
-            margin-top: 10px;
             animation: bounce 2s infinite;
+            margin-bottom: 5px;
         }
 
         @keyframes bounce {
@@ -41,318 +42,748 @@
             }
 
             50% {
-                transform: translateY(-8px);
+                transform: translateY(-10px);
             }
         }
 
-        /* Title */
+        /* TITLE */
+
         h1 {
-            text-align: center;
+            margin: 0;
             font-size: 42px;
-            margin-top: 5px;
             color: #247a3b;
         }
 
         .subtitle {
-            text-align: center;
-            font-size: 18px;
+            font-size: 20px;
             margin-top: 8px;
-            margin-bottom: 25px;
-            color: #55705a;
+            color: #52705a;
         }
 
-        /* Search */
+        /* SEARCH */
+
         .search-box {
-            background: white;
-            padding: 8px;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             display: flex;
-            margin-bottom: 20px;
+            gap: 10px;
+            margin-top: 25px;
         }
 
         .search-box input {
             flex: 1;
-            border: none;
-            outline: none;
+            padding: 16px;
+            border: 2px solid #b7d8bd;
+            border-radius: 18px;
             font-size: 17px;
-            padding: 14px;
-            border-radius: 15px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #247a3b;
         }
 
         .search-box button {
+            padding: 16px 20px;
             border: none;
+            border-radius: 18px;
             background: #247a3b;
             color: white;
-            padding: 0 18px;
-            border-radius: 15px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
         }
 
         .search-box button:hover {
-            background: #1d6330;
+            transform: scale(1.03);
         }
 
-        /* Categories */
+        /* CATEGORIES */
+
         .categories {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
 
         .category {
-            background: white;
             border: none;
+            background: white;
             border-radius: 18px;
-            padding: 15px 5px;
-            font-size: 14px;
+            padding: 15px 8px;
+            font-size: 15px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: 0.2s;
         }
 
         .category:hover {
             transform: translateY(-3px);
+            box-shadow: 0 5px 14px rgba(0,0,0,0.12);
         }
 
-        .category-icon {
-            font-size: 30px;
-            display: block;
-            margin-bottom: 5px;
+        .category.active {
+            background: #247a3b;
+            color: white;
         }
 
-        /* Sprout message */
-        .sprout-card {
-            background: #e2f3df;
-            border-radius: 22px;
-            padding: 18px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 2px solid #c7e6c1;
-        }
+        /* QUICK ITEMS */
 
-        .sprout-card p {
-            font-size: 17px;
-            font-weight: bold;
-        }
-
-        /* Points */
-        .points {
+        #quickItems {
+            display: none;
             background: white;
             border-radius: 22px;
             padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin-top: 18px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
         }
 
-        .points-title {
-            font-size: 15px;
-            color: #657568;
-        }
-
-        .points-number {
-            font-size: 32px;
-            font-weight: bold;
+        #quickItems h3 {
+            margin-top: 0;
             color: #247a3b;
-            margin-top: 5px;
         }
 
-        /* School goal */
-        .goal {
+        .item-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .item-button {
+            border: none;
+            background: #edf7ef;
+            color: #23412b;
+            padding: 11px 15px;
+            border-radius: 15px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .item-button:hover {
+            background: #d9eedc;
+            transform: scale(1.03);
+        }
+
+        /* SPROUT MESSAGE */
+
+        .message-card {
             background: white;
             border-radius: 22px;
             padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin-top: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            font-size: 17px;
         }
 
-        .goal h2 {
-            font-size: 19px;
-            text-align: center;
-            margin-bottom: 12px;
+        /* POINTS */
+
+        .points-card {
+            background: #fff8d9;
+            border-radius: 20px;
+            padding: 18px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        /* SCHOOL GOAL */
+
+        .goal-card {
+            background: white;
+            border-radius: 22px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
         }
 
         .progress-background {
+            width: 100%;
             height: 18px;
-            background: #e5e5e5;
+            background: #e2e2e2;
             border-radius: 20px;
             overflow: hidden;
+            margin-top: 10px;
         }
 
-        .progress {
+        #progress {
             height: 100%;
             width: 0%;
             background: #247a3b;
             border-radius: 20px;
+            transition: width 0.5s;
         }
 
-        .goal-text {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #657568;
-        }
+        /* RESULT */
 
-        /* Result */
-        .result {
+        #result {
             display: none;
             background: white;
             border-radius: 25px;
             padding: 25px;
-            text-align: center;
             margin-top: 20px;
-            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 18px rgba(0,0,0,0.10);
         }
 
-        .result-item {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .result-bin {
+        #resultItem {
             font-size: 24px;
             font-weight: bold;
-            margin: 10px 0;
         }
 
-        .result-message {
-            font-size: 16px;
-            color: #657568;
+        #resultBin {
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 12px;
         }
 
-        /* Footer */
+        #resultMessage {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .success {
+            font-size: 20px;
+            margin-top: 15px;
+        }
+
+        /* FOOTER */
+
         footer {
-            text-align: center;
-            margin-top: 25px;
-            color: #7a897d;
-            font-size: 13px;
+            margin-top: 35px;
+            color: #64806a;
+            font-size: 14px;
         }
 
-        @media (max-width: 450px) {
+        /* MOBILE */
+
+        @media (max-width: 500px) {
+
             h1 {
-                font-size: 36px;
+                font-size: 34px;
             }
 
-            .sprout {
-                font-size: 65px;
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                width: 100%;
             }
         }
+
     </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
+    <!-- SPROUT -->
+
     <div class="sprout">🌱</div>
 
     <h1>SORT IT OUT! 🌎</h1>
 
-    <p class="subtitle">
+    <div class="subtitle">
         Where does your trash go?
-    </p>
+    </div>
+
+
+    <!-- SEARCH -->
 
     <div class="search-box">
-        <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="🔎 Search an item..."
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search an item..."
+            onkeydown="if(event.key === 'Enter') searchItem()"
         >
 
         <button onclick="searchItem()">
             Search
         </button>
+
     </div>
+
+
+    <!-- CATEGORIES -->
 
     <div class="categories">
 
-        <button class="category">
-            <span class="category-icon">🍎</span>
-            Food
+        <button class="category" onclick="showCategory('food', this)">
+            🍎<br>Food
         </button>
 
-        <button class="category">
-            <span class="category-icon">🥤</span>
-            Drinks
+        <button class="category" onclick="showCategory('drinks', this)">
+            🥤<br>Drinks
         </button>
 
-        <button class="category">
-            <span class="category-icon">📦</span>
-            Packaging
+        <button class="category" onclick="showCategory('packaging', this)">
+            📦<br>Packaging
         </button>
 
-        <button class="category">
-            <span class="category-icon">🍕</span>
-            Lunch
+        <button class="category" onclick="showCategory('lunch', this)">
+            🍕<br>Lunch
         </button>
 
-        <button class="category">
-            <span class="category-icon">🍴</span>
-            Utensils
+        <button class="category" onclick="showCategory('utensils', this)">
+            🍴<br>Utensils
         </button>
 
-        <button class="category">
-            <span class="category-icon">❓</span>
-            Not Sure
+        <button class="category" onclick="showCategory('not-sure', this)">
+            ❓<br>Not Sure
         </button>
 
     </div>
 
-    <div class="sprout-card">
-        <p>🌱 "Hey! What are we sorting today?"</p>
-    </div>
 
-    <div class="points">
+    <!-- QUICK ITEMS -->
 
-        <div class="points-title">
-            ⭐ YOUR SORTING SCORE
-        </div>
+    <div id="quickItems">
 
-        <div class="points-number" id="points">
-            0 points
-        </div>
+        <h3 id="categoryTitle">
+            🌱 Pick an item!
+        </h3>
+
+        <div class="item-buttons" id="itemButtons"></div>
 
     </div>
 
-    <div class="goal">
 
-        <h2>🌎 OUR SCHOOL GOAL</h2>
+    <!-- SPROUT MESSAGE -->
+
+    <div class="message-card" id="sproutMessage">
+
+        🌱 "Hey! What are we sorting today?"
+
+    </div>
+
+
+    <!-- POINTS -->
+
+    <div class="points-card">
+
+        ⭐ Your Points:
+        <span id="points">0 points</span>
+
+    </div>
+
+
+    <!-- GOAL -->
+
+    <div class="goal-card">
+
+        🌎 School Sorting Goal
 
         <div class="progress-background">
-            <div class="progress" id="progress"></div>
+
+            <div id="progress"></div>
+
         </div>
 
-        <div class="goal-text">
+        <p id="goalText">
             0 / 1,000 items sorted
-        </div>
+        </p>
 
     </div>
 
-    <div class="result" id="result">
 
-        <div class="result-item" id="resultItem">
-        </div>
+    <!-- RESULT -->
 
-        <div class="result-bin" id="resultBin">
-        </div>
+    <div id="result">
 
-        <div class="result-message" id="resultMessage">
-        </div>
+        <div id="resultItem"></div>
+
+        <div id="resultBin"></div>
+
+        <div id="resultMessage"></div>
+
+        <div class="success" id="successMessage"></div>
 
     </div>
+
 
     <footer>
+
         🌱 Every item counts!
+
     </footer>
 
 </div>
 
+
 <script>
 
+    /* =========================
+       POINTS + PROGRESS
+    ========================= */
+
     let points = 0;
+    let itemsSorted = 0;
+
+
+    /* =========================
+       ITEM DATABASE
+       ========================= */
+
+    const items = {
+
+        /* FOOD */
+
+        banana: {
+            name: "Banana Peel",
+            emoji: "🍌",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        apple: {
+            name: "Apple",
+            emoji: "🍎",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        applecore: {
+            name: "Apple Core",
+            emoji: "🍎",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        food: {
+            name: "Food Scraps",
+            emoji: "🍎",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Food scraps go in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        rice: {
+            name: "Rice",
+            emoji: "🍚",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        pasta: {
+            name: "Pasta",
+            emoji: "🍝",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        eggshell: {
+            name: "Eggshell",
+            emoji: "🥚",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        meat: {
+            name: "Meat",
+            emoji: "🥩",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+        vegetables: {
+            name: "Vegetables",
+            emoji: "🥦",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Put it in the GREEN bin! 🌱",
+            category: "food"
+        },
+
+
+        /* DRINKS */
+
+        waterbottle: {
+            name: "Plastic Water Bottle",
+            emoji: "🧴",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "drinks"
+        },
+
+        bottle: {
+            name: "Plastic Bottle",
+            emoji: "🧴",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "drinks"
+        },
+
+        can: {
+            name: "Drink Can",
+            emoji: "🥫",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "drinks"
+        },
+
+        soda: {
+            name: "Soda Can",
+            emoji: "🥤",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "drinks"
+        },
+
+
+        /* PACKAGING */
+
+        cardboard: {
+            name: "Cardboard",
+            emoji: "📦",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "packaging"
+        },
+
+        box: {
+            name: "Cardboard Box",
+            emoji: "📦",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "packaging"
+        },
+
+        paper: {
+            name: "Paper",
+            emoji: "📄",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "packaging"
+        },
+
+        carton: {
+            name: "Carton",
+            emoji: "📦",
+            bin: "🔵 RECYCLING",
+            color: "#2673c9",
+            message: "Put it in the BLUE bin! ♻️",
+            category: "packaging"
+        },
+
+
+        /* LUNCH */
+
+        pizzabox: {
+            name: "Pizza Box",
+            emoji: "🍕",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Food-soiled pizza boxes go in the GREEN bin! 🌱",
+            category: "lunch"
+        },
+
+        napkin: {
+            name: "Napkin",
+            emoji: "🧻",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Food-soiled napkins go in the GREEN bin! 🌱",
+            category: "lunch"
+        },
+
+        papertowel: {
+            name: "Paper Towel",
+            emoji: "🧻",
+            bin: "🟢 ORGANICS",
+            color: "#247a3b",
+            message: "Food-soiled paper towels go in the GREEN bin! 🌱",
+            category: "lunch"
+        },
+
+
+        /* UTENSILS */
+
+        fork: {
+            name: "Plastic Fork",
+            emoji: "🍴",
+            bin: "⚪ LANDFILL",
+            color: "#666666",
+            message: "Put it in the GRAY bin! 🗑️",
+            category: "utensils"
+        },
+
+        spoon: {
+            name: "Plastic Spoon",
+            emoji: "🥄",
+            bin: "⚪ LANDFILL",
+            color: "#666666",
+            message: "Put it in the GRAY bin! 🗑️",
+            category: "utensils"
+        },
+
+        knife: {
+            name: "Plastic Knife",
+            emoji: "🔪",
+            bin: "⚪ LANDFILL",
+            color: "#666666",
+            message: "Put it in the GRAY bin! 🗑️",
+            category: "utensils"
+        }
+
+    };
+
+
+    /* =========================
+       CATEGORY ITEMS
+       ========================= */
+
+    const categoryItems = {
+
+        food: [
+            ["🍌", "Banana Peel", "banana"],
+            ["🍎", "Apple", "apple"],
+            ["🍎", "Apple Core", "applecore"],
+            ["🍚", "Rice", "rice"],
+            ["🍝", "Pasta", "pasta"],
+            ["🥚", "Eggshell", "eggshell"],
+            ["🥩", "Meat", "meat"],
+            ["🥦", "Vegetables", "vegetables"]
+        ],
+
+        drinks: [
+            ["🧴", "Water Bottle", "waterbottle"],
+            ["🧴", "Plastic Bottle", "bottle"],
+            ["🥫", "Drink Can", "can"],
+            ["🥤", "Soda Can", "soda"]
+        ],
+
+        packaging: [
+            ["📦", "Cardboard", "cardboard"],
+            ["📦", "Cardboard Box", "box"],
+            ["📄", "Paper", "paper"],
+            ["📦", "Carton", "carton"]
+        ],
+
+        lunch: [
+            ["🍕", "Pizza Box", "pizzabox"],
+            ["🧻", "Napkin", "napkin"],
+            ["🧻", "Paper Towel", "papertowel"]
+        ],
+
+        utensils: [
+            ["🍴", "Plastic Fork", "fork"],
+            ["🥄", "Plastic Spoon", "spoon"],
+            ["🔪", "Plastic Knife", "knife"]
+        ],
+
+        "not-sure": []
+
+    };
+
+
+    /* =========================
+       CATEGORY BUTTONS
+       ========================= */
+
+    function showCategory(category, button) {
+
+        const quickItems = document.getElementById("quickItems");
+        const itemButtons = document.getElementById("itemButtons");
+        const categoryTitle = document.getElementById("categoryTitle");
+
+        /* Remove active style from all buttons */
+
+        document.querySelectorAll(".category").forEach(function(btn) {
+            btn.classList.remove("active");
+        });
+
+        /* Add active style */
+
+        button.classList.add("active");
+
+        /* NOT SURE */
+
+        if (category === "not-sure") {
+
+            quickItems.style.display = "block";
+
+            categoryTitle.innerHTML =
+                "🌱 Not sure? Search for an item above!";
+
+            itemButtons.innerHTML =
+                "<p>Type something like <b>cardboard</b>, <b>banana</b>, or <b>can</b> into the search box.</p>";
+
+            document.getElementById("sproutMessage").innerHTML =
+                '🌱 "Hmm... let’s figure this out together!"';
+
+            return;
+        }
+
+
+        /* SHOW CATEGORY */
+
+        quickItems.style.display = "block";
+
+        categoryTitle.innerHTML =
+            "🌱 Pick an item!";
+
+        itemButtons.innerHTML = "";
+
+
+        categoryItems[category].forEach(function(item) {
+
+            const emoji = item[0];
+            const name = item[1];
+            const key = item[2];
+
+            const button = document.createElement("button");
+
+            button.className = "item-button";
+
+            button.innerHTML =
+                emoji + " " + name;
+
+            button.onclick = function() {
+                showResult(key);
+            };
+
+            itemButtons.appendChild(button);
+
+        });
+
+
+        document.getElementById("sproutMessage").innerHTML =
+            "🌱 Pick an item and I'll help you sort it!";
+
+    }
+
+
+    /* =========================
+       SEARCH
+       ========================= */
 
     function searchItem() {
 
@@ -362,104 +793,184 @@
             .toLowerCase()
             .trim();
 
-        const result = document.getElementById("result");
-
-        const resultItem = document.getElementById("resultItem");
-
-        const resultBin = document.getElementById("resultBin");
-
-        const resultMessage = document.getElementById("resultMessage");
-
-
         if (input === "") {
 
-            result.style.display = "none";
+            document.getElementById("result").style.display = "none";
 
             return;
+        }
+
+
+        let foundItem = null;
+
+
+        /* Exact match */
+
+        if (items[input]) {
+
+            foundItem = input;
+
+        } else {
+
+            /* Look for the word inside an item name */
+
+            for (const key in items) {
+
+                const itemName =
+                    items[key].name.toLowerCase();
+
+                if (
+                    itemName.includes(input) ||
+                    input.includes(key)
+                ) {
+
+                    foundItem = key;
+                    break;
+
+                }
+
+            }
 
         }
 
 
-        /*
-        TEMPORARY TEST ITEMS
+        if (foundItem) {
 
-        We will replace these with your school's
-        REAL waste-sorting rules later.
-        */
+            showResult(foundItem);
 
-        if (
-            input.includes("banana") ||
-            input.includes("apple") ||
-            input.includes("food")
-        ) {
+        } else {
 
-            resultItem.innerHTML = "🍌 " + input.toUpperCase();
-
-            resultBin.innerHTML = "🟢 ORGANICS";
-
-            resultBin.style.color = "#247a3b";
-
-            resultMessage.innerHTML =
-                "Put it in the GREEN bin! 🌱";
+            showUnknown(input);
 
         }
 
-        else if (
-            input.includes("can")
-        ) {
+    }
 
-            resultItem.innerHTML = "🥫 " + input.toUpperCase();
 
-            resultBin.innerHTML = "🔵 RECYCLING";
+    /* =========================
+       SHOW RESULT
+       ========================= */
 
-            resultBin.style.color = "#2673c9";
+    function showResult(key) {
 
-            resultMessage.innerHTML =
-                "Put it in the BLUE bin! ♻️";
+        const item = items[key];
 
+        if (!item) {
+            return;
         }
 
-        else if (
-            input.includes("fork") ||
-            input.includes("chip")
-        ) {
 
-            resultItem.innerHTML = "🗑️ " + input.toUpperCase();
+        const result =
+            document.getElementById("result");
 
-            resultBin.innerHTML = "⚪ LANDFILL";
+        document.getElementById("resultItem").innerHTML =
+            item.emoji + " " + item.name;
 
-            resultBin.style.color = "#666666";
+        document.getElementById("resultBin").innerHTML =
+            item.bin;
 
-            resultMessage.innerHTML =
-                "Put it in the GRAY bin! 🗑️";
+        document.getElementById("resultBin").style.color =
+            item.color;
 
-        }
+        document.getElementById("resultMessage").innerHTML =
+            item.message;
 
-        else {
-
-            resultItem.innerHTML = "🤔 " + input.toUpperCase();
-
-            resultBin.innerHTML = "❓ NOT SURE YET";
-
-            resultBin.style.color = "#777777";
-
-            resultMessage.innerHTML =
-                "Let's research this item together! 🌱";
-
-        }
+        document.getElementById("successMessage").innerHTML =
+            "⭐ +10 points! Great sorting!";
 
 
         result.style.display = "block";
 
 
-        if (!input.includes("not sure")) {
+        /* Add points */
 
-            points += 10;
+        points += 10;
 
-            document.getElementById("points").innerHTML =
-                points + " points";
+        itemsSorted += 1;
 
-        }
+
+        document.getElementById("points").innerHTML =
+            points + " points";
+
+
+        updateProgress();
+
+
+        document.getElementById("sproutMessage").innerHTML =
+            '🌱 "YAY! You got it! Every item counts!"';
+
+
+        /* Scroll to result on mobile */
+
+        result.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+
+    /* =========================
+       UNKNOWN ITEM
+       ========================= */
+
+    function showUnknown(input) {
+
+        const result =
+            document.getElementById("result");
+
+
+        document.getElementById("resultItem").innerHTML =
+            "🤔 " + input.toUpperCase();
+
+
+        document.getElementById("resultBin").innerHTML =
+            "❓ NOT SURE YET";
+
+
+        document.getElementById("resultBin").style.color =
+            "#777777";
+
+
+        document.getElementById("resultMessage").innerHTML =
+            "🌱 I don't know this item yet.";
+
+
+        document.getElementById("successMessage").innerHTML =
+            "Try another name or ask a teacher!";
+
+
+        result.style.display = "block";
+
+
+        document.getElementById("sproutMessage").innerHTML =
+            '🌱 "Hmm... let’s figure this out!"';
+
+
+        result.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+
+    /* =========================
+       PROGRESS
+       ========================= */
+
+    function updateProgress() {
+
+        const percentage =
+            Math.min((itemsSorted / 1000) * 100, 100);
+
+
+        document.getElementById("progress").style.width =
+            percentage + "%";
+
+
+        document.getElementById("goalText").innerHTML =
+            itemsSorted + " / 1,000 items sorted";
 
     }
 
@@ -467,4 +978,3 @@
 
 </body>
 </html>
-```
