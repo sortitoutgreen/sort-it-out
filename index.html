@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,899 +7,1213 @@
 <title>SORT IT OUT! 🌎</title>
 
 <style>
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #23412b;
-    text-align: center;
-
-    /* PRETTY BACKGROUND */
-    background:
-        radial-gradient(circle at 10% 15%, rgba(180, 220, 185, 0.55) 0 45px, transparent 46px),
-        radial-gradient(circle at 90% 20%, rgba(255, 232, 165, 0.45) 0 55px, transparent 56px),
-        radial-gradient(circle at 20% 85%, rgba(190, 225, 205, 0.45) 0 70px, transparent 71px),
-        radial-gradient(circle at 85% 80%, rgba(210, 235, 200, 0.5) 0 60px, transparent 61px),
-        linear-gradient(135deg, #eff9f1, #f9f7e9);
-
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-
-/* DECORATIVE BACKGROUND */
-
-body::before {
-    content: "🌿";
-    position: fixed;
-    top: 25px;
-    left: 20px;
-    font-size: 45px;
-    opacity: 0.35;
-    transform: rotate(-15deg);
-    pointer-events: none;
-}
-
-body::after {
-    content: "🍃";
-    position: fixed;
-    right: 20px;
-    bottom: 25px;
-    font-size: 50px;
-    opacity: 0.3;
-    transform: rotate(20deg);
-    pointer-events: none;
-}
-
-
-.container {
-    width: 92%;
-    max-width: 700px;
-    margin: auto;
-    padding: 35px 0 55px;
-}
-
-
-/* SPROUT */
-
-.sprout {
-    font-size: 78px;
-    animation: bounce 2s infinite;
-    margin-bottom: 5px;
-    filter: drop-shadow(0 5px 5px rgba(50,100,50,0.12));
-}
-
-@keyframes bounce {
-
-    0%, 100% {
-        transform: translateY(0);
+    * {
+        box-sizing: border-box;
     }
 
-    50% {
-        transform: translateY(-10px);
+    body {
+        margin: 0;
+        font-family: "Trebuchet MS", Arial, sans-serif;
+        background: linear-gradient(135deg, #eaffea, #fffdf1);
+        color: #24452d;
+        min-height: 100vh;
     }
 
-}
+    button, input {
+        font-family: inherit;
+    }
 
+    .container {
+        width: 92%;
+        max-width: 900px;
+        margin: auto;
+    }
 
-/* TITLE */
+    /* ---------- HEADER ---------- */
 
-h1 {
-    margin: 0;
-    font-size: 43px;
-    color: #247a3b;
-    letter-spacing: 1px;
-}
+    header {
+        text-align: center;
+        padding: 35px 15px 15px;
+    }
 
-.subtitle {
-    font-size: 20px;
-    margin-top: 8px;
-    color: #52705a;
-}
+    .sprout {
+        font-size: 70px;
+        animation: bounce 2s infinite;
+        display: inline-block;
+    }
 
-
-/* SEARCH */
-
-.search-box {
-    display: flex;
-    gap: 10px;
-    margin-top: 25px;
-}
-
-.search-box input {
-    flex: 1;
-    padding: 17px;
-    border: 2px solid #c4ddc8;
-    border-radius: 20px;
-    font-size: 17px;
-    outline: none;
-    background: rgba(255,255,255,0.95);
-    box-shadow: 0 5px 15px rgba(60,100,70,0.08);
-}
-
-.search-box input:focus {
-    border-color: #247a3b;
-    box-shadow: 0 5px 18px rgba(36,122,59,0.15);
-}
-
-.search-box button {
-    padding: 16px 22px;
-    border: none;
-    border-radius: 20px;
-    background: #247a3b;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 5px 12px rgba(36,122,59,0.2);
-    transition: 0.2s;
-}
-
-.search-box button:hover {
-    transform: translateY(-2px);
-}
-
-
-/* CATEGORIES */
-
-.categories {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 11px;
-    margin-top: 22px;
-}
-
-.category {
-    border: 2px solid transparent;
-    background: rgba(255,255,255,0.92);
-    border-radius: 20px;
-    padding: 16px 8px;
-    font-size: 15px;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(50,90,60,0.09);
-    transition: 0.2s;
-}
-
-.category:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 18px rgba(50,90,60,0.14);
-}
-
-.category.active {
-    background: #247a3b;
-    color: white;
-    border-color: #247a3b;
-}
-
-
-/* QUICK ITEMS */
-
-#quickItems {
-    display: none;
-    background: rgba(255,255,255,0.96);
-    border-radius: 25px;
-    padding: 22px;
-    margin-top: 18px;
-    box-shadow: 0 7px 20px rgba(50,90,60,0.1);
-    border: 1px solid #e0eee2;
-}
-
-#quickItems h3 {
-    margin-top: 0;
-    color: #247a3b;
-}
-
-.item-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.item-button {
-    border: none;
-    background: #edf7ef;
-    color: #23412b;
-    padding: 12px 16px;
-    border-radius: 16px;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.item-button:hover {
-    background: #d9eedc;
-    transform: scale(1.04);
-}
-
-
-/* SPROUT MESSAGE */
-
-.message-card {
-    background: rgba(255,255,255,0.96);
-    border-radius: 24px;
-    padding: 20px;
-    margin-top: 20px;
-    box-shadow: 0 7px 20px rgba(50,90,60,0.09);
-    font-size: 17px;
-    border: 1px solid #e0eee2;
-}
-
-
-/* POINTS */
-
-.points-card {
-    background: #fff8d9;
-    border-radius: 22px;
-    padding: 18px;
-    margin-top: 15px;
-    font-weight: bold;
-    box-shadow: 0 5px 15px rgba(120,100,30,0.08);
-}
-
-
-/* GOAL */
-
-.goal-card {
-    background: rgba(255,255,255,0.96);
-    border-radius: 24px;
-    padding: 20px;
-    margin-top: 15px;
-    box-shadow: 0 7px 20px rgba(50,90,60,0.09);
-    border: 1px solid #e0eee2;
-}
-
-.progress-background {
-    width: 100%;
-    height: 18px;
-    background: #e5e5e5;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-top: 10px;
-}
-
-#progress {
-    height: 100%;
-    width: 0%;
-    background: #247a3b;
-    border-radius: 20px;
-    transition: width 0.5s;
-}
-
-
-/* RESULT */
-
-#result {
-    display: none;
-    background: rgba(255,255,255,0.98);
-    border-radius: 27px;
-    padding: 28px;
-    margin-top: 20px;
-    box-shadow: 0 9px 25px rgba(50,90,60,0.13);
-    border: 2px solid #dcebdd;
-}
-
-#resultItem {
-    font-size: 25px;
-    font-weight: bold;
-}
-
-#resultBin {
-    font-size: 31px;
-    font-weight: bold;
-    margin-top: 12px;
-}
-
-#resultMessage {
-    margin-top: 10px;
-    font-size: 18px;
-}
-
-.success {
-    font-size: 20px;
-    margin-top: 15px;
-}
-
-
-/* FOOTER */
-
-footer {
-    margin-top: 38px;
-    color: #64806a;
-    font-size: 14px;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 500px) {
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+    }
 
     h1 {
-        font-size: 34px;
+        font-size: 42px;
+        margin: 5px 0;
+        color: #287a3c;
     }
 
     .subtitle {
         font-size: 18px;
+        margin-bottom: 20px;
     }
 
-    .categories {
-        grid-template-columns: repeat(2, 1fr);
+    /* ---------- PAGES ---------- */
+
+    .page {
+        display: none;
     }
+
+    .page.active {
+        display: block;
+    }
+
+    /* ---------- SEARCH ---------- */
 
     .search-box {
-        flex-direction: column;
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .search-box input {
+        flex: 1;
+        padding: 15px;
+        border: 3px solid #b9dfb9;
+        border-radius: 18px;
+        font-size: 16px;
+        outline: none;
+        background: white;
     }
 
     .search-box button {
-        width: 100%;
+        border: none;
+        border-radius: 18px;
+        padding: 15px 20px;
+        background: #4caf50;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
     }
 
-}
+    /* ---------- FEATURE BUTTONS ---------- */
 
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+        margin: 20px 0;
+    }
+
+    .feature-button {
+        border: none;
+        border-radius: 25px;
+        padding: 22px 10px;
+        cursor: pointer;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transition: 0.2s;
+        color: #24452d;
+    }
+
+    .feature-button:hover {
+        transform: translateY(-4px);
+    }
+
+    .feature-icon {
+        font-size: 35px;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .feature-title {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .feature-description {
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    /* ---------- CATEGORIES ---------- */
+
+    .section-title {
+        text-align: center;
+        margin-top: 28px;
+    }
+
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+
+    .category-button {
+        border: none;
+        border-radius: 18px;
+        padding: 15px 8px;
+        background: #ffffff;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    .category-button:hover {
+        transform: scale(1.03);
+    }
+
+    /* ---------- QUICK ITEMS ---------- */
+
+    .quick-items {
+        margin-top: 20px;
+    }
+
+    .item-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .item-button {
+        border: none;
+        background: #f5fff3;
+        border: 2px solid #cdeacb;
+        border-radius: 20px;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+
+    /* ---------- CARDS ---------- */
+
+    .card {
+        background: white;
+        border-radius: 25px;
+        padding: 25px;
+        margin: 20px 0;
+        box-shadow: 0 7px 20px rgba(0,0,0,0.08);
+    }
+
+    .sprout-message {
+        text-align: center;
+        font-size: 17px;
+    }
+
+    /* ---------- RESULT ---------- */
+
+    .result {
+        text-align: center;
+        display: none;
+    }
+
+    .result-bin {
+        font-size: 45px;
+        margin: 10px;
+    }
+
+    .result-name {
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .fact-box {
+        background: #f1fff0;
+        border: 2px dashed #8acb83;
+        border-radius: 18px;
+        padding: 15px;
+        margin-top: 20px;
+        text-align: left;
+    }
+
+    .fact-title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    /* ---------- POINTS ---------- */
+
+    .points-card {
+        text-align: center;
+    }
+
+    .points-number {
+        font-size: 35px;
+        font-weight: bold;
+        color: #287a3c;
+    }
+
+    .progress-background {
+        background: #e4eee2;
+        height: 18px;
+        border-radius: 20px;
+        overflow: hidden;
+        margin-top: 10px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        width: 0%;
+        background: #58ad55;
+        transition: 0.5s;
+    }
+
+    /* ---------- INNER PAGES ---------- */
+
+    .inner-header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .inner-header h2 {
+        font-size: 32px;
+        color: #287a3c;
+    }
+
+    .back-button {
+        border: none;
+        background: #e5f5e2;
+        color: #287a3c;
+        padding: 10px 18px;
+        border-radius: 15px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    /* ---------- SNAP IT ---------- */
+
+    .camera-box {
+        text-align: center;
+    }
+
+    .camera-icon {
+        font-size: 70px;
+    }
+
+    .upload-button {
+        display: inline-block;
+        background: #4caf50;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 18px;
+        cursor: pointer;
+        font-weight: bold;
+        margin: 10px;
+    }
+
+    #photoInput {
+        display: none;
+    }
+
+    #photoPreview {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 20px;
+        margin-top: 15px;
+        display: none;
+    }
+
+    .snap-help {
+        display: none;
+        margin-top: 20px;
+    }
+
+    .snap-item-button {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 15px;
+        background: #f1fff0;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    /* ---------- GAME ---------- */
+
+    .game-score {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .game-item {
+        text-align: center;
+        font-size: 55px;
+        margin: 15px;
+    }
+
+    .game-name {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .bin-buttons {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .bin-button {
+        border: none;
+        border-radius: 20px;
+        padding: 20px 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .green-bin {
+        background: #dff4dc;
+    }
+
+    .blue-bin {
+        background: #dceeff;
+    }
+
+    .gray-bin {
+        background: #eeeeee;
+    }
+
+    .game-feedback {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        min-height: 30px;
+    }
+
+    .streak {
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    /* ---------- FOOTER ---------- */
+
+    footer {
+        text-align: center;
+        padding: 30px 10px;
+        font-size: 13px;
+        color: #65806b;
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 650px) {
+
+        h1 {
+            font-size: 34px;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .category-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .search-box {
+            flex-direction: column;
+        }
+
+        .search-box button {
+            width: 100%;
+        }
+
+        .bin-buttons {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 </head>
-
 
 <body>
 
 <div class="container">
 
+<!-- ================= HOME PAGE ================= -->
 
-    <!-- SPROUT -->
+<div id="homePage" class="page active">
 
-    <div class="sprout">
-        🌱
-    </div>
+<header>
+    <div class="sprout">🌱</div>
 
+    <h1>SORT IT OUT! 🌎</h1>
 
-    <h1>
-        SORT IT OUT! 🌎
-    </h1>
-
-
-    <div class="subtitle">
+    <p class="subtitle">
         Where does your trash go?
-    </div>
+    </p>
+</header>
 
 
-    <!-- SEARCH -->
+<!-- SEARCH -->
 
-    <div class="search-box">
+<div class="search-box">
 
-        <input
-            type="text"
-            id="searchInput"
-            placeholder="🔍 Search an item..."
-            onkeydown="if(event.key === 'Enter') searchItem()"
-        >
+    <input
+        id="searchInput"
+        type="text"
+        placeholder="🔎 Search an item..."
+        onkeydown="if(event.key === 'Enter') searchItem()"
+    >
 
-        <button onclick="searchItem()">
-            Search
-        </button>
+    <button onclick="searchItem()">
+        SORT IT!
+    </button>
 
-    </div>
-
-
-    <!-- CATEGORIES -->
-
-    <div class="categories">
-
-        <button class="category" onclick="showCategory('food', this)">
-            🍎<br>Food
-        </button>
-
-        <button class="category" onclick="showCategory('drinks', this)">
-            🥤<br>Drinks
-        </button>
-
-        <button class="category" onclick="showCategory('packaging', this)">
-            📦<br>Packaging
-        </button>
-
-        <button class="category" onclick="showCategory('lunch', this)">
-            🍕<br>Lunch
-        </button>
-
-        <button class="category" onclick="showCategory('utensils', this)">
-            🍴<br>Utensils
-        </button>
-
-        <button class="category" onclick="showCategory('not-sure', this)">
-            ❓<br>Not Sure
-        </button>
-
-    </div>
+</div>
 
 
-    <!-- QUICK ITEMS -->
+<!-- FEATURE BUTTONS -->
 
-    <div id="quickItems">
+<div class="feature-grid">
 
-        <h3 id="categoryTitle">
-            🌱 Pick an item!
-        </h3>
+    <button class="feature-button" onclick="showPage('snapPage')">
 
-        <div class="item-buttons" id="itemButtons"></div>
+        <span class="feature-icon">📸</span>
 
-    </div>
+        <span class="feature-title">
+            SNAP IT!
+        </span>
 
-
-    <!-- SPROUT MESSAGE -->
-
-    <div class="message-card" id="sproutMessage">
-
-        🌱 "Hey! What are we sorting today?"
-
-    </div>
-
-
-    <!-- POINTS -->
-
-    <div class="points-card">
-
-        ⭐ Your Points:
-        <span id="points">0 points</span>
-
-    </div>
-
-
-    <!-- GOAL -->
-
-    <div class="goal-card">
-
-        🌎 School Sorting Goal
-
-        <div class="progress-background">
-
-            <div id="progress"></div>
-
+        <div class="feature-description">
+            Take a picture & get help
         </div>
 
-        <p id="goalText">
-            0 / 1,000 items sorted
+    </button>
+
+
+    <button class="feature-button" onclick="startGame()">
+
+        <span class="feature-icon">🎮</span>
+
+        <span class="feature-title">
+            SORT IT!
+        </span>
+
+        <div class="feature-description">
+            Play the sorting game
+        </div>
+
+    </button>
+
+
+    <button class="feature-button" onclick="showCategory('food', null)">
+
+        <span class="feature-icon">🌱</span>
+
+        <span class="feature-title">
+            QUICK SORT
+        </span>
+
+        <div class="feature-description">
+            Find common items
+        </div>
+
+    </button>
+
+</div>
+
+
+<!-- CATEGORIES -->
+
+<h2 class="section-title">
+    What are you throwing away?
+</h2>
+
+<div class="category-grid">
+
+    <button class="category-button"
+            onclick="showCategory('food', this)">
+        🍎 Food
+    </button>
+
+    <button class="category-button"
+            onclick="showCategory('drinks', this)">
+        🥤 Drinks
+    </button>
+
+    <button class="category-button"
+            onclick="showCategory('packaging', this)">
+        📦 Packaging
+    </button>
+
+    <button class="category-button"
+            onclick="showCategory('lunch', this)">
+        🍕 Lunch
+    </button>
+
+    <button class="category-button"
+            onclick="showCategory('utensils', this)">
+        🍴 Utensils
+    </button>
+
+    <button class="category-button"
+            onclick="showCategory('not-sure', this)">
+        ❓ Not Sure
+    </button>
+
+</div>
+
+
+<!-- QUICK ITEMS -->
+
+<div class="quick-items">
+
+    <div class="item-buttons" id="itemButtons"></div>
+
+</div>
+
+
+<!-- SPROUT -->
+
+<div class="card sprout-message" id="sproutMessage">
+
+    🌱 <strong>Sprout says:</strong><br>
+
+    Not sure where something goes?
+    Search for it above!
+
+</div>
+
+
+<!-- RESULT -->
+
+<div class="card result" id="result">
+
+    <div class="result-bin" id="resultBin"></div>
+
+    <div class="result-name" id="resultName"></div>
+
+    <p id="resultMessage"></p>
+
+    <!-- FUN FACT APPEARS HERE -->
+
+    <div class="fact-box">
+
+        <div class="fact-title">
+            💡 FUN FACT!
+        </div>
+
+        <div id="funFact"></div>
+
+    </div>
+
+</div>
+
+
+<!-- POINTS -->
+
+<div class="card points-card">
+
+    <div>
+        ⭐ Your Sorting Points
+    </div>
+
+    <div class="points-number" id="points">
+        0
+    </div>
+
+    <div>
+        Items sorted: <span id="itemsSorted">0</span>
+    </div>
+
+    <div class="progress-background">
+
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+
+    </div>
+
+    <p>
+        🌎 School goal: 1,000 correct sorts!
+    </p>
+
+</div>
+
+
+<footer>
+    🌱 SORT IT OUT! — A student-created environmental project
+</footer>
+
+</div>
+
+
+<!-- ================= SNAP PAGE ================= -->
+
+<div id="snapPage" class="page">
+
+<div class="inner-header">
+
+    <button
+        class="back-button"
+        onclick="showPage('homePage')">
+        ← Back Home
+    </button>
+
+    <h2>📸 SNAP IT!</h2>
+
+    <p>
+        Not sure what something is?
+        Let Sprout help!
+    </p>
+
+</div>
+
+
+<div class="card camera-box">
+
+    <div class="camera-icon">
+        📸
+    </div>
+
+    <h3>
+        Take a picture
+    </h3>
+
+    <p>
+        Snap a photo of the item you're trying to sort.
+    </p>
+
+    <label class="upload-button" for="photoInput">
+        📷 Take / Upload Photo
+    </label>
+
+    <input
+        id="photoInput"
+        type="file"
+        accept="image/*"
+        capture="environment"
+        onchange="showPhoto(event)"
+    >
+
+    <br>
+
+    <img
+        id="photoPreview"
+        alt="Your uploaded item"
+    >
+
+
+    <div class="snap-help" id="snapHelp">
+
+        <h3>
+            🌱 What did you snap?
+        </h3>
+
+        <p>
+            Pick the closest match and Sprout will tell you where it goes.
         </p>
 
+        <button class="snap-item-button"
+                onclick="snapChoose('banana')">
+            🍌 Banana / Banana Peel
+        </button>
+
+        <button class="snap-item-button"
+                onclick="snapChoose('waterbottle')">
+            🥤 Water Bottle
+        </button>
+
+        <button class="snap-item-button"
+                onclick="snapChoose('can')">
+            🥫 Drink Can
+        </button>
+
+        <button class="snap-item-button"
+                onclick="snapChoose('cardboard')">
+            📦 Cardboard
+        </button>
+
+        <button class="snap-item-button"
+                onclick="snapChoose('pizzabox')">
+            🍕 Pizza Box
+        </button>
+
+        <button class="snap-item-button"
+                onclick="snapChoose('fork')">
+            🍴 Plastic Fork
+        </button>
+
     </div>
 
+</div>
 
-    <!-- RESULT -->
+</div>
 
-    <div id="result">
 
-        <div id="resultItem"></div>
+<!-- ================= GAME PAGE ================= -->
 
-        <div id="resultBin"></div>
+<div id="gamePage" class="page">
 
-        <div id="resultMessage"></div>
+<div class="inner-header">
 
-        <div class="success" id="successMessage"></div>
+    <button
+        class="back-button"
+        onclick="showPage('homePage')">
+        ← Back Home
+    </button>
+
+    <h2>🎮 SORT IT!</h2>
+
+    <p>
+        Help Sprout put each item in the right bin!
+    </p>
+
+</div>
+
+
+<div class="card">
+
+    <div class="game-score">
+        ⭐ Score: <strong id="gameScore">0</strong>
+    </div>
+
+    <div class="streak">
+        🔥 Streak: <strong id="gameStreak">0</strong>
+    </div>
+
+    <div class="game-item" id="gameEmoji">
+        🍎
+    </div>
+
+    <div class="game-name" id="gameName">
+        Apple
+    </div>
+
+    <div class="bin-buttons">
+
+        <button
+            class="bin-button green-bin"
+            onclick="checkAnswer('green')">
+            🟢<br>
+            ORGANICS
+        </button>
+
+        <button
+            class="bin-button blue-bin"
+            onclick="checkAnswer('blue')">
+            🔵<br>
+            RECYCLING
+        </button>
+
+        <button
+            class="bin-button gray-bin"
+            onclick="checkAnswer('gray')">
+            ⚪<br>
+            LANDFILL
+        </button>
 
     </div>
 
+    <div
+        class="game-feedback"
+        id="gameFeedback">
+    </div>
 
-    <footer>
-        🌱 Every item counts!
-    </footer>
+    <div
+        class="fact-box"
+        id="gameFactBox"
+        style="display:none;">
+
+        <div class="fact-title">
+            💡 FUN FACT!
+        </div>
+
+        <div id="gameFact"></div>
+
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+
+        <button
+            class="back-button"
+            onclick="nextGameItem()">
+            ➡️ Next Item
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
 
 </div>
 
 
 <script>
 
-
-/* =========================
-   POINTS
-========================= */
-
-let points = 0;
-let itemsSorted = 0;
-
-
-/* =========================
+/* =====================================================
    ITEM DATABASE
-========================= */
+   ===================================================== */
 
 const items = {
 
     banana: {
         name: "Banana Peel",
         emoji: "🍌",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Food scraps can be collected as organic material instead of being sent to the landfill."
     },
 
     apple: {
         name: "Apple",
         emoji: "🍎",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Fruit scraps are one type of food waste that can go into an organics collection."
     },
 
     applecore: {
         name: "Apple Core",
         emoji: "🍎",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Even the part of an apple you don't eat can still be useful as organic material."
     },
 
     rice: {
         name: "Rice",
         emoji: "🍚",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Cooked rice is a food scrap that can be collected with other organic materials."
     },
 
     pasta: {
         name: "Pasta",
         emoji: "🍝",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Leftover pasta is food waste, so it doesn't need to become landfill waste."
     },
 
     eggshell: {
         name: "Eggshell",
         emoji: "🥚",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Eggshells are a food-related material that can be collected with organic waste."
     },
 
     meat: {
         name: "Meat",
-        emoji: "🥩",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        emoji: "🍗",
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Food scraps can include meat and other leftovers."
     },
 
     vegetables: {
         name: "Vegetables",
         emoji: "🥦",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Put it in the GREEN bin! 🌱",
-        category: "food"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Vegetable scraps are a great example of food waste that can be collected as organics."
     },
-
-
-    /* DRINKS */
 
     waterbottle: {
         name: "Water Bottle",
-        emoji: "🧴",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "drinks"
+        emoji: "🥤",
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Many plastic bottles can be recycled when they are accepted by your local recycling program."
     },
 
     bottle: {
         name: "Plastic Bottle",
         emoji: "🧴",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "drinks"
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Plastic bottles are one of the common types of containers collected for recycling."
     },
 
     can: {
         name: "Drink Can",
         emoji: "🥫",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "drinks"
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Metal cans can be recycled instead of being thrown into the landfill."
     },
 
     soda: {
         name: "Soda Can",
         emoji: "🥤",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "drinks"
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Aluminum cans are valuable recyclable materials."
     },
-
-
-    /* PACKAGING */
 
     cardboard: {
         name: "Cardboard",
         emoji: "📦",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "packaging"
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Cardboard can be recycled, which helps keep useful paper fibers in circulation."
     },
 
     box: {
         name: "Cardboard Box",
         emoji: "📦",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "packaging"
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Breaking down cardboard boxes can make them easier to collect for recycling."
     },
 
     paper: {
         name: "Paper",
         emoji: "📄",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "packaging"
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Paper is one of the materials commonly collected for recycling."
     },
 
     carton: {
         name: "Carton",
-        emoji: "📦",
-        bin: "🔵 RECYCLING",
-        color: "#2673c9",
-        message: "Put it in the BLUE bin! ♻️",
-        category: "packaging"
+        emoji: "🧃",
+        bin: "blue",
+        binName: "RECYCLING",
+        fact: "Some cartons can be recycled depending on the local recycling program."
     },
-
-
-    /* LUNCH */
 
     pizzabox: {
         name: "Pizza Box",
         emoji: "🍕",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Food-soiled pizza boxes go in the GREEN bin! 🌱",
-        category: "lunch"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Food-soiled paper items can be collected with organic material in programs that accept them."
     },
 
     napkin: {
         name: "Napkin",
         emoji: "🧻",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Food-soiled napkins go in the GREEN bin! 🌱",
-        category: "lunch"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Used paper napkins can be collected as food-soiled paper where accepted."
     },
 
     papertowel: {
         name: "Paper Towel",
         emoji: "🧻",
-        bin: "🟢 ORGANICS",
-        color: "#247a3b",
-        message: "Food-soiled paper towels go in the GREEN bin! 🌱",
-        category: "lunch"
+        bin: "green",
+        binName: "ORGANICS",
+        fact: "Paper towels are an example of food-soiled paper that can be collected with organics where accepted."
     },
-
-
-    /* UTENSILS */
 
     fork: {
         name: "Plastic Fork",
         emoji: "🍴",
-        bin: "⚪ LANDFILL",
-        color: "#666666",
-        message: "Put it in the GRAY bin! 🗑️",
-        category: "utensils"
+        bin: "gray",
+        binName: "LANDFILL",
+        fact: "Not every item made from plastic belongs in recycling. Local rules decide which plastics are accepted."
     },
 
     spoon: {
         name: "Plastic Spoon",
         emoji: "🥄",
-        bin: "⚪ LANDFILL",
-        color: "#666666",
-        message: "Put it in the GRAY bin! 🗑️",
-        category: "utensils"
+        bin: "gray",
+        binName: "LANDFILL",
+        fact: "A plastic item being labeled 'plastic' does not automatically mean it belongs in the recycling bin."
     },
 
     knife: {
         name: "Plastic Knife",
         emoji: "🔪",
-        bin: "⚪ LANDFILL",
-        color: "#666666",
-        message: "Put it in the GRAY bin! 🗑️",
-        category: "utensils"
+        bin: "gray",
+        binName: "LANDFILL",
+        fact: "Some plastic foodware is not accepted in recycling programs."
     }
 
 };
 
 
-/* =========================
-   CATEGORY LISTS
-========================= */
+/* =====================================================
+   CATEGORIES
+   ===================================================== */
 
-const categoryItems = {
+const categories = {
 
     food: [
-        ["🍌", "Banana Peel", "banana"],
-        ["🍎", "Apple", "apple"],
-        ["🍎", "Apple Core", "applecore"],
-        ["🍚", "Rice", "rice"],
-        ["🍝", "Pasta", "pasta"],
-        ["🥚", "Eggshell", "eggshell"],
-        ["🥩", "Meat", "meat"],
-        ["🥦", "Vegetables", "vegetables"]
+        "banana",
+        "apple",
+        "applecore",
+        "rice",
+        "pasta",
+        "eggshell",
+        "meat",
+        "vegetables"
     ],
 
     drinks: [
-        ["🧴", "Water Bottle", "waterbottle"],
-        ["🧴", "Plastic Bottle", "bottle"],
-        ["🥫", "Drink Can", "can"],
-        ["🥤", "Soda Can", "soda"]
+        "waterbottle",
+        "bottle",
+        "can",
+        "soda"
     ],
 
     packaging: [
-        ["📦", "Cardboard", "cardboard"],
-        ["📦", "Cardboard Box", "box"],
-        ["📄", "Paper", "paper"],
-        ["📦", "Carton", "carton"]
+        "cardboard",
+        "box",
+        "paper",
+        "carton"
     ],
 
     lunch: [
-        ["🍕", "Pizza Box", "pizzabox"],
-        ["🧻", "Napkin", "napkin"],
-        ["🧻", "Paper Towel", "papertowel"]
+        "pizzabox",
+        "napkin",
+        "papertowel"
     ],
 
     utensils: [
-        ["🍴", "Plastic Fork", "fork"],
-        ["🥄", "Plastic Spoon", "spoon"],
-        ["🔪", "Plastic Knife", "knife"]
+        "fork",
+        "spoon",
+        "knife"
     ],
 
     "not-sure": []
-
 };
 
 
-/* =========================
+/* =====================================================
+   POINTS
+   ===================================================== */
+
+let points = 0;
+let itemsSorted = 0;
+
+const goal = 1000;
+
+
+function updatePoints() {
+
+    document.getElementById("points").textContent = points;
+
+    document.getElementById("itemsSorted").textContent = itemsSorted;
+
+    let percent = (itemsSorted / goal) * 100;
+
+    if (percent > 100) {
+        percent = 100;
+    }
+
+    document.getElementById("progressBar").style.width =
+        percent + "%";
+}
+
+
+/* =====================================================
+   PAGE SWITCHING
+   ===================================================== */
+
+function showPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageId).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =====================================================
    CATEGORY BUTTONS
-========================= */
+   ===================================================== */
 
 function showCategory(category, button) {
-
-    const quickItems =
-        document.getElementById("quickItems");
 
     const itemButtons =
         document.getElementById("itemButtons");
 
-    const categoryTitle =
-        document.getElementById("categoryTitle");
-
-
-    document.querySelectorAll(".category").forEach(function(btn) {
-
-        btn.classList.remove("active");
-
-    });
-
-
-    button.classList.add("active");
-
+    itemButtons.innerHTML = "";
 
     if (category === "not-sure") {
 
-        quickItems.style.display = "block";
-
-        categoryTitle.innerHTML =
-            "🌱 Not sure? Search for an item above!";
-
-        itemButtons.innerHTML =
-            "<p>Try searching for something like <b>cardboard</b>, <b>banana</b>, or <b>can</b>.</p>";
-
-        document.getElementById("sproutMessage").innerHTML =
-            '🌱 "Hmm... let’s figure this out together!"';
+        itemButtons.innerHTML = `
+            <button class="item-button"
+                    onclick="showNotSure()">
+                ❓ I don't know
+            </button>
+        `;
 
         return;
     }
 
+    categories[category].forEach(itemKey => {
 
-    quickItems.style.display = "block";
+        const item = items[itemKey];
 
-    categoryTitle.innerHTML =
-        "🌱 Pick an item!";
-
-    itemButtons.innerHTML = "";
-
-
-    categoryItems[category].forEach(function(item) {
-
-        const emoji = item[0];
-        const name = item[1];
-        const key = item[2];
-
-
-        const newButton =
+        const buttonElement =
             document.createElement("button");
 
-        newButton.className =
-            "item-button";
+        buttonElement.className = "item-button";
 
-        newButton.innerHTML =
-            emoji + " " + name;
+        buttonElement.textContent =
+            item.emoji + " " + item.name;
 
-
-        newButton.onclick = function() {
-
-            showResult(key);
-
+        buttonElement.onclick = function() {
+            showResult(itemKey);
         };
 
-
-        itemButtons.appendChild(newButton);
+        itemButtons.appendChild(buttonElement);
 
     });
-
-
-    document.getElementById("sproutMessage").innerHTML =
-        "🌱 Pick an item and I'll help you sort it!";
 
 }
 
 
-/* =========================
+/* =====================================================
    SEARCH
-========================= */
+   ===================================================== */
 
 function searchItem() {
 
     const input =
-        document.getElementById("searchInput")
-        .value
-        .toLowerCase()
-        .trim();
+        document.getElementById("searchInput");
 
+    const search =
+        input.value.toLowerCase().trim();
 
-    if (input === "") {
+    if (!search) {
 
-        document.getElementById("result").style.display =
-            "none";
+        document.getElementById("sproutMessage").innerHTML =
+            "🌱 <strong>Sprout says:</strong><br>Please type an item first!";
 
         return;
-
     }
 
 
     let foundItem = null;
 
 
-    if (items[input]) {
+    for (const key in items) {
 
-        foundItem = input;
+        const item = items[key];
 
-    } else {
+        if (
+            key.includes(search) ||
+            item.name.toLowerCase().includes(search)
+        ) {
 
-        for (const key in items) {
-
-            const itemName =
-                items[key].name.toLowerCase();
-
-
-            if (
-                itemName.includes(input) ||
-                input.includes(key)
-            ) {
-
-                foundItem = key;
-
-                break;
-
-            }
+            foundItem = key;
+            break;
 
         }
 
@@ -913,141 +1226,332 @@ function searchItem() {
 
     } else {
 
-        showUnknown(input);
+        showNotSure();
 
     }
 
 }
 
 
-/* =========================
+/* =====================================================
    SHOW RESULT
-========================= */
+   ===================================================== */
 
-function showResult(key) {
+function showResult(itemKey) {
 
-    const item = items[key];
+    const item = items[itemKey];
+
+    const result =
+        document.getElementById("result");
+
+    const bin =
+        document.getElementById("resultBin");
+
+    const name =
+        document.getElementById("resultName");
+
+    const message =
+        document.getElementById("resultMessage");
+
+    const fact =
+        document.getElementById("funFact");
 
 
-    if (!item) {
+    let binEmoji = "⚪";
+
+    if (item.bin === "green") {
+        binEmoji = "🟢";
+    }
+
+    if (item.bin === "blue") {
+        binEmoji = "🔵";
+    }
+
+
+    bin.textContent =
+        binEmoji + " " + item.binName;
+
+    name.textContent =
+        item.emoji + " " + item.name;
+
+    message.textContent =
+        "🌱 Sprout says: This goes in the " +
+        item.binName +
+        " bin!";
+
+
+    fact.textContent =
+        item.fact;
+
+
+    result.style.display = "block";
+
+
+    /* Give points */
+
+    points += 10;
+    itemsSorted += 1;
+
+    updatePoints();
+
+
+    document.getElementById("sproutMessage").innerHTML =
+        "🎉 <strong>Nice sorting!</strong><br>Sprout is proud of you! 🌱";
+
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* =====================================================
+   NOT SURE
+   ===================================================== */
+
+function showNotSure() {
+
+    const result =
+        document.getElementById("result");
+
+    document.getElementById("resultBin").textContent =
+        "❓";
+
+    document.getElementById("resultName").textContent =
+        "Not sure yet!";
+
+    document.getElementById("resultMessage").textContent =
+        "Try another name or ask a teacher! 🌱";
+
+    document.getElementById("funFact").textContent =
+        "Fun fact: Learning which items cause the most confusion can help schools make better sorting signs and tools!";
+
+    result.style.display = "block";
+
+    result.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* =====================================================
+   SNAP IT
+   ===================================================== */
+
+function showPhoto(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) {
         return;
     }
 
 
-    const result =
-        document.getElementById("result");
+    const preview =
+        document.getElementById("photoPreview");
+
+    const help =
+        document.getElementById("snapHelp");
 
 
-    document.getElementById("resultItem").innerHTML =
-        item.emoji + " " + item.name;
+    const reader =
+        new FileReader();
 
 
-    document.getElementById("resultBin").innerHTML =
-        item.bin;
+    reader.onload = function(e) {
+
+        preview.src =
+            e.target.result;
+
+        preview.style.display =
+            "block";
+
+        help.style.display =
+            "block";
+
+    };
 
 
-    document.getElementById("resultBin").style.color =
-        item.color;
-
-
-    document.getElementById("resultMessage").innerHTML =
-        item.message;
-
-
-    document.getElementById("successMessage").innerHTML =
-        "⭐ +10 points! Great sorting!";
-
-
-    result.style.display = "block";
-
-
-    points += 10;
-
-    itemsSorted += 1;
-
-
-    document.getElementById("points").innerHTML =
-        points + " points";
-
-
-    updateProgress();
-
-
-    document.getElementById("sproutMessage").innerHTML =
-        '🌱 "YAY! You got it! Every item counts!"';
-
-
-    result.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
+    reader.readAsDataURL(file);
 
 }
 
 
-/* =========================
-   UNKNOWN ITEM
-========================= */
+function snapChoose(itemKey) {
 
-function showUnknown(input) {
+    showPage("homePage");
 
-    const result =
-        document.getElementById("result");
+    setTimeout(function() {
 
+        showResult(itemKey);
 
-    document.getElementById("resultItem").innerHTML =
-        "🤔 " + input.toUpperCase();
-
-
-    document.getElementById("resultBin").innerHTML =
-        "❓ NOT SURE YET";
-
-
-    document.getElementById("resultBin").style.color =
-        "#777777";
-
-
-    document.getElementById("resultMessage").innerHTML =
-        "🌱 I don't know this item yet.";
-
-
-    document.getElementById("successMessage").innerHTML =
-        "Try another name or ask a teacher!";
-
-
-    result.style.display = "block";
-
-
-    document.getElementById("sproutMessage").innerHTML =
-        '🌱 "Hmm... let’s figure this out!"';
-
-
-    result.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
+    }, 200);
 
 }
 
 
-/* =========================
-   PROGRESS
-========================= */
+/* =====================================================
+   SORTING GAME
+   ===================================================== */
 
-function updateProgress() {
+const gameItems = [
+    "banana",
+    "apple",
+    "rice",
+    "waterbottle",
+    "can",
+    "cardboard",
+    "paper",
+    "pizzabox",
+    "napkin",
+    "fork",
+    "spoon"
+];
 
-    const percentage =
-        Math.min((itemsSorted / 1000) * 100, 100);
+
+let currentGameItem = null;
+let gameScore = 0;
+let gameStreak = 0;
+let gameAnswered = false;
 
 
-    document.getElementById("progress").style.width =
-        percentage + "%";
+function startGame() {
 
+    showPage("gamePage");
 
-    document.getElementById("goalText").innerHTML =
-        itemsSorted + " / 1,000 items sorted";
+    gameScore = 0;
+    gameStreak = 0;
+
+    document.getElementById("gameScore").textContent =
+        gameScore;
+
+    document.getElementById("gameStreak").textContent =
+        gameStreak;
+
+    nextGameItem();
 
 }
+
+
+function nextGameItem() {
+
+    const randomIndex =
+        Math.floor(Math.random() * gameItems.length);
+
+    currentGameItem =
+        gameItems[randomIndex];
+
+    const item =
+        items[currentGameItem];
+
+
+    document.getElementById("gameEmoji").textContent =
+        item.emoji;
+
+    document.getElementById("gameName").textContent =
+        item.name;
+
+    document.getElementById("gameFeedback").textContent =
+        "";
+
+    document.getElementById("gameFactBox").style.display =
+        "none";
+
+    gameAnswered = false;
+
+}
+
+
+function checkAnswer(answer) {
+
+    if (gameAnswered) {
+        return;
+    }
+
+
+    const item =
+        items[currentGameItem];
+
+
+    gameAnswered = true;
+
+
+    if (answer === item.bin) {
+
+        gameScore += 10;
+        gameStreak += 1;
+
+        points += 10;
+        itemsSorted += 1;
+
+        document.getElementById("gameFeedback").textContent =
+            "🎉 CORRECT! Sprout is impressed! 🌱";
+
+
+        document.getElementById("gameFact").textContent =
+            item.fact;
+
+        document.getElementById("gameFactBox").style.display =
+            "block";
+
+
+    } else {
+
+        gameStreak = 0;
+
+        document.getElementById("gameFeedback").textContent =
+            "🌱 Almost! The correct bin is " +
+            getBinName(item.bin) +
+            ".";
+
+        document.getElementById("gameFact").textContent =
+            item.fact;
+
+        document.getElementById("gameFactBox").style.display =
+            "block";
+
+    }
+
+
+    document.getElementById("gameScore").textContent =
+        gameScore;
+
+    document.getElementById("gameStreak").textContent =
+        gameStreak;
+
+
+    updatePoints();
+
+}
+
+
+function getBinName(bin) {
+
+    if (bin === "green") {
+        return "🟢 ORGANICS";
+    }
+
+    if (bin === "blue") {
+        return "🔵 RECYCLING";
+    }
+
+    return "⚪ LANDFILL";
+
+}
+
+
+/* =====================================================
+   STARTUP
+   ===================================================== */
+
+showCategory("food", null);
+
+updatePoints();
 
 </script>
 
